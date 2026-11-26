@@ -5,6 +5,9 @@ engineering fundamentals (REST API, auth, relational data, containerized dev, CI
 
 **Stack:** Node.js + Express + TypeScript (server) · React + Vite + TypeScript (client) · PostgreSQL (db)
 
+**Features:** email/password auth (JWT) · create, edit, filter and complete tasks
+(title, description, status, due date) · per-user data isolation · integration-tested API.
+
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full infrastructure breakdown.
 
 ## Quick start

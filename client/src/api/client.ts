@@ -1,9 +1,18 @@
+export type TaskStatus = 'todo' | 'in_progress' | 'done';
+
 export interface Task {
   id: number;
   title: string;
   description: string | null;
-  status: 'todo' | 'in_progress' | 'done';
+  status: TaskStatus;
   due_date: string | null;
+}
+
+export interface TaskInput {
+  title: string;
+  description?: string | null;
+  status?: TaskStatus;
+  due_date?: string | null;
 }
 
 let token: string | null = null;
@@ -41,9 +50,9 @@ export const api = {
       body: JSON.stringify({ email, password }),
     }),
   listTasks: () => request<Task[]>('/tasks'),
-  createTask: (title: string) =>
-    request<Task>('/tasks', { method: 'POST', body: JSON.stringify({ title }) }),
-  updateTask: (id: number, fields: Partial<Task>) =>
+  createTask: (input: TaskInput) =>
+    request<Task>('/tasks', { method: 'POST', body: JSON.stringify(input) }),
+  updateTask: (id: number, fields: Partial<TaskInput>) =>
     request<Task>(`/tasks/${id}`, { method: 'PATCH', body: JSON.stringify(fields) }),
   deleteTask: (id: number) => request<void>(`/tasks/${id}`, { method: 'DELETE' }),
 };

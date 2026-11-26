@@ -53,9 +53,19 @@ containerized local dev, and CI.
 ## Environments
 
 - **Local**: `docker-compose up` — everything on localhost, `.env` from `.env.example`
-- **CI**: GitHub Actions runs lint, typecheck, and unit tests on `server` and `client`
+- **CI**: GitHub Actions runs lint, typecheck, and tests on `server` and `client`.
+  The `server` job spins up a Postgres 16 service container so integration tests
+  (Supertest against the real API + DB) run end-to-end on every push.
 - **Future**: deploy target left open — e.g. Fly.io/Render for `server` + managed Postgres,
   Vercel/Netlify for `client`. Not provisioned yet; add when you're ready to deploy.
+
+## Testing
+
+- **Server**: Jest + Supertest integration tests hit the Express app against a
+  real Postgres database (schema applied, tables truncated between tests).
+  Covers auth (register/login/validation) and tasks (CRUD + per-user isolation).
+- **Client**: Vitest + Testing Library. Renders pages with a mocked API client
+  to verify behavior like status filtering and completed counts.
 
 ## Why this shape
 
